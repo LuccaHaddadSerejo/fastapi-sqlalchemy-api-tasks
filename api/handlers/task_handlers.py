@@ -2,9 +2,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database.db_setup import get_db
-from database.models.user_model import User
-from schemas.task_schema import TaskCreate, Task, TaskUpdate
-from api.utils.deps import get_current_user
+from models.user_models import User
+from schemas.task_schemas import TaskCreate, Task, TaskUpdate
+from api.deps.user_deps import get_current_user
 from api.utils.task_utils import (
     get_task_by_id,
     get_tasks,

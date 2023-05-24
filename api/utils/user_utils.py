@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from database.models.user_model import User
+from models.user_models import User
 from schemas.user_schema import UserCreate
 from fastapi import HTTPException
 from .jwt_utils import get_hashed_password

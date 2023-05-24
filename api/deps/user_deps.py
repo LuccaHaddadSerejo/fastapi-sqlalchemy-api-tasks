@@ -5,10 +5,10 @@ from sqlalchemy.orm import Session
 from database.db_setup import get_db
 from fastapi.security import OAuth2PasswordBearer
 from api.utils.jwt_utils import ALGORITHM, JWT_SECRET_KEY
-from database.models.user_model import User
+from models.user_models import User
 from jose import jwt
 from pydantic import ValidationError
-from schemas.token_schema import TokenPayload
+from schemas.token_schemas import TokenPayload
 
 
 reuseable_oauth = OAuth2PasswordBearer(tokenUrl="/login", scheme_name="JWT")

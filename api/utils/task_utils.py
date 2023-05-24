@@ -1,8 +1,8 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from database.models.user_model import Task as TaskModel
-from schemas.task_schema import TaskCreate
-from database.models.user_model import User
+from models.task_models import Task as TaskModel
+from schemas.task_schemas import TaskCreate
+from models.user_models import User
 
 
 def get_task_by_id(db: Session, task_id: int):

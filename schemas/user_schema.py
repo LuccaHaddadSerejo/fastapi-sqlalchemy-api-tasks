@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel, Field
-from .task_schema import TaskRetrieve
+from .task_schemas import TaskRetrieve
 
 
 class UserBase(BaseModel):

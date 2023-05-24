@@ -1,9 +1,11 @@
 from fastapi import FastAPI
-from api import user_endpoints, task_endpoints, login_endpoints
+from api.handlers import login_handlers, user_handlers
+from api.handlers import task_handlers
 from database.db_setup import engine
-from database.models import user_model
+from models import task_models, user_models
 
-user_model.Base.metadata.create_all(bind=engine)
+user_models.Base.metadata.create_all(bind=engine)
+task_models.Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(
@@ -16,6 +18,6 @@ app = FastAPI(
 )
 
 
-app.include_router(user_endpoints.router)
-app.include_router(task_endpoints.router)
-app.include_router(login_endpoints.router)
+app.include_router(user_handlers.router)
+app.include_router(task_handlers.router)
+app.include_router(login_handlers.router)

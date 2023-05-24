@@ -10,7 +10,7 @@ from api.utils.user_utils import (
     delete_user,
     update_user,
 )
-from api.utils.deps import get_current_user
+from api.deps.user_deps import get_current_user
 
 
 router = APIRouter()

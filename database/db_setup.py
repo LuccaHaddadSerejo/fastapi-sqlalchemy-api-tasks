@@ -1,12 +1,12 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://hsluc@localhost/enxertodb"
+SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://hsluc:lhspost99@localhost/enxertodb"
 
-engine = create_async_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={}, future=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
-AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
 
 Base = declarative_base()
 
@@ -17,9 +17,3 @@ def get_db():
         yield db
     finally:
         db.close()
-
-
-async def async_get_db():
-    async with AsyncSessionLocal() as db:
-        yield db
-        await db.commit()

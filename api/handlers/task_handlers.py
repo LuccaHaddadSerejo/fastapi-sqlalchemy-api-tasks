@@ -18,7 +18,7 @@ router = APIRouter()
 
 
 @router.get("/tasks", response_model=List[Task], status_code=200)
-async def read_tasks(
+async def read_tasks_endpoint(
     user: User = Depends(get_current_user),
     skip: int = 0,
     limit: int = 100,
@@ -29,7 +29,7 @@ async def read_tasks(
 
 
 @router.get("/tasks/{task_id}", response_model=Task, status_code=200)
-async def read_task(
+async def read_task_endpoint(
     task_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)
 ):
     db_task = get_task_by_id(db=db, task_id=task_id)
@@ -39,7 +39,7 @@ async def read_task(
 
 
 @router.get("/tasks/list/todo", response_model=List[Task], status_code=200)
-async def read_todo_task(
+async def read_todo_tasks_endpoint(
     db: Session = Depends(get_db), user: User = Depends(get_current_user)
 ):
     tasks = get_todo_tasks(db=db)
@@ -47,7 +47,7 @@ async def read_todo_task(
 
 
 @router.post("/tasks", response_model=Task, status_code=201)
-async def create_new_task(
+async def create_task_endpoint(
     task: TaskCreate,
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),

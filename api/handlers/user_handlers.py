@@ -17,29 +17,33 @@ router = APIRouter()
 
 
 @router.get("/users", response_model=List[User], status_code=200)
-async def read_users(
+async def read_users_endpoint(
+    db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
     skip: int = 0,
     limit: int = 10,
-    db: Session = Depends(get_db),
 ):
-    users = get_users(db, skip=skip, limit=limit, user=user)
+    users = get_users(db, user=user, skip=skip, limit=limit)
     return users
 
 
 @router.get("/users/{user_id}", response_model=User, status_code=200)
-async def read_user(
-    user_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)
+async def read_user_endpoint(
+    user_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)
 ):
-    db_user = get_user(db=db, user_id=user_id, user=user)
+    db_user = get_user(user_id=user_id, db=db, user=user)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
 
 @router.post("/users", response_model=User, status_code=201)
-async def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
-    return create_user(db=db, user=user)
+async def create_user_endpoint(
+    user_data: UserCreate,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    return create_user(user_data=user_data, db=db, user=user)
 
 
 @router.patch("/users/{user_id}", response_model=User, status_code=200)
@@ -50,7 +54,7 @@ async def update_user_endpoint(
     user: User = Depends(get_current_user),
 ):
     update_data = user_data.dict(exclude_unset=True)
-    return update_user(db=db, user_id=user_id, user_data=update_data, user=user)
+    return update_user(user_id=user_id, user_data=update_data, db=db, user=user)
 
 
 @router.delete("/users/{user_id}", response_model=None, status_code=204)
@@ -59,4 +63,4 @@ async def delete_user_endpoint(
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    delete_user(db=db, user_id=user_id, user=user)
+    delete_user(user_id=user_id, db=db, user=user)

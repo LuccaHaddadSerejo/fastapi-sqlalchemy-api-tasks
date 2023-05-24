@@ -1,11 +1,12 @@
 from typing import Optional
 from pydantic import BaseModel
+from models.task_models import Status
 
 
 class TaskBase(BaseModel):
     title: str
     description: Optional[str] = None
-    status: str
+    status: Status
     user_id: Optional[int] = None
 
 
@@ -23,7 +24,7 @@ class Task(TaskBase):
 class TaskUpdate(BaseModel):
     title: Optional[str]
     description: Optional[str]
-    status: Optional[str]
+    status: Optional[Status]
     user_id: Optional[int]
 
     class Config:

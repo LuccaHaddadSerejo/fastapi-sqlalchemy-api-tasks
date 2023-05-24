@@ -9,7 +9,7 @@ def get_task_by_id(db: Session, task_id: int):
     return db.query(TaskModel).filter(TaskModel.id == task_id).first()
 
 
-def get_tasks(db: Session, user: User, skip: int = 0, limit: int = 100):
+def get_tasks(db: Session, user: User, skip: int = 0, limit: int = 10):
     if user.profile == "employee":
         raise HTTPException(status_code=401, detail="You dont have permission")
     return db.query(TaskModel).offset(skip).limit(limit).all()
@@ -19,7 +19,11 @@ def get_todo_tasks(db: Session):
     return db.query(TaskModel).filter(TaskModel.status == "todo").all()
 
 
-def create_task(db: Session, task: TaskCreate, user: User):
+def create_task(
+    db: Session,
+    user: User,
+    task: TaskCreate,
+):
     if user.profile == "employee":
         raise HTTPException(status_code=401, detail="You dont have permission")
     if task.user_id is not None:
@@ -38,7 +42,12 @@ def create_task(db: Session, task: TaskCreate, user: User):
     return db_task
 
 
-def update_task(db: Session, task_id: int, task_data: dict, user: User):
+def update_task(
+    db: Session,
+    user: User,
+    task_id: int,
+    task_data: dict,
+):
     if user.profile == "employee":
         raise HTTPException(status_code=401, detail="You dont have permission")
     db_task = get_task_by_id(db=db, task_id=task_id)
@@ -50,7 +59,11 @@ def update_task(db: Session, task_id: int, task_data: dict, user: User):
     return db_task
 
 
-def delete_task(db: Session, task_id: int, user: User):
+def delete_task(
+    db: Session,
+    user: User,
+    task_id: int,
+):
     if user.profile == "employee":
         raise HTTPException(status_code=401, detail="You dont have permission")
     db_task = db.query(TaskModel).filter(TaskModel.id == task_id).first()

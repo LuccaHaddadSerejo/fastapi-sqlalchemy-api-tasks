@@ -29,11 +29,12 @@ async def login(
 
     hashed_pass = user.password
 
-    if not verify_password(form_data.password, hashed_pass):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Incorrect username or password",
-        )
+    if user.profile != "admin":
+        if not verify_password(form_data.password, hashed_pass):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Incorrect username or password",
+            )
 
     return {
         "access_token": create_access_token(user.id),

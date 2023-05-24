@@ -20,15 +20,15 @@ Esse serviço possui uma API REST para criar, listar, atualizar e deletar os dad
 | Método | Endpoint             | Responsabilidade                               | Permissão           |
 | ------ | -------------------- | ---------------------------------------------- | ------------------- |
 | POST   | /login               | Faz login do usuário                           | N/A                 |
-| POST   | /user                | Cria um novo usuário                           | Somente Admin       |
-| GET    | /user                | Lista todos os usuários                        | Somente Admin       |
-| GET    | /user/id             | Lê um usuário com base no ID                   | Somente Admin       |
-| PATCH  | /user/id             | Atualiza um usuário                            | Somente Admin       | 
-| DELETE | /user/id             | Deleta um usuário                              | Somente Admin       |
-| POST   | /task                | Cria uma task                                  | Admin e Manager     |
-| GET    | /task                | Lista todas as tasks                           | Admin e Manager     |
-| GET    | /task/list/todo      | Lista todas as tasks com status = "todo"       | Usuário autenticado |
-| GET    | /task/id             | Lê uma task com base no ID                     | Usuário autenticado |
-| PATCH  | /task/id             | Atualiza uma task                              | Admin e Manager     |
-| DELETE | /task/id             | Deleta uma task                                | Admin e Manager     |
+| POST   | /users               | Cria um novo usuário                           | Somente Admin       |
+| GET    | /users               | Lista todos os usuários                        | Somente Admin       |
+| GET    | /users/id            | Lê um usuário com base no ID                   | Somente Admin       |
+| PATCH  | /users/id            | Atualiza um usuário                            | Somente Admin       | 
+| DELETE | /users/id            | Deleta um usuário                              | Somente Admin       |
+| POST   | /tasks               | Cria uma task                                  | Admin e Manager     |
+| GET    | /tasks               | Lista todas as tasks                           | Admin e Manager     |
+| GET    | /tasks/list/todo     | Lista todas as tasks com status = "todo"       | Usuário autenticado |
+| GET    | /tasks/id            | Lê uma task com base no ID                     | Usuário autenticado |
+| PATCH  | /tasks/id            | Atualiza uma task                              | Admin e Manager     |
+| DELETE | /tasks/id            | Deleta uma task                                | Admin e Manager     |
 | DOCS   | /docs                | Acesso a documentação                          | N/A                 |

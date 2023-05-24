@@ -1,11 +1,11 @@
 # Enxerto-Agro-teste V2
-
+## Siga o passo a passo para iniciar o projeto:
  1. Instale o seu ambiente virtual com o seguinte comando: **python -m venv venv**
  2. Entre no seu ambiente virtual com o comando: **source venv/Scripts/activate (windows)** ou **source venv/Bin/activate (linux)**
  3. Instale as dependências do projeto que estão no arquivo requirements.txt com o comando: **pip install -r requirements.txt**
  4. A API foi desenvolvida em  **PostgreSQL**. Para iniciar basta criar e configurar um arquivo  **.env** na raiz do projeto com base no arquivo  **.env.example**. Não se esqueça de criar o database com o mesmo nome que colocar no .env
  5. Faça a migração das models com o seguinte comando: **alembic upgrade head**
- 6. **Somente o ADMIN consegue criar outros usuários. O ADMIN é criado junto com as tabelas do banco de dados**
+ 6. **Somente o ADMIN consegue criar outros usuários. O ADMIN é criado no momento da migração das models**
  7. Credenciais do ADMIN > **username: admin | password: admin1234**
 
 ## Requisitos do Serviço

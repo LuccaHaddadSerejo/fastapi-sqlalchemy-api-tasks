@@ -24,7 +24,7 @@ class Task(TaskBase):
 class TaskUpdate(BaseModel):
     title: Optional[str]
     description: Optional[str]
-    status: Optional[str]
+    status: Optional[Status]
     user_id: Optional[int]
 
     class Config:

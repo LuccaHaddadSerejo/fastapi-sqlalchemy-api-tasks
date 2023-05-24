@@ -32,7 +32,7 @@ class User(UserBase):
 
 class UserUpdate(BaseModel):
     username: Optional[str]
-    profile: Optional[str]
+    profile: Optional[Profile]
     password: Optional[str]
 
     class Config:

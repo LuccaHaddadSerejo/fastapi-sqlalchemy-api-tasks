@@ -1,16 +1,17 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from database.models.user_model import Task as TaskModel
-from schemas.task_schema import TaskCreate, TaskUpdate
+from schemas.task_schema import TaskCreate
 from database.models.user_model import User
-import ipdb
 
 
 def get_task_by_id(db: Session, task_id: int):
     return db.query(TaskModel).filter(TaskModel.id == task_id).first()
 
 
-def get_tasks(db: Session, skip: int = 0, limit: int = 100):
+def get_tasks(db: Session, user: User, skip: int = 0, limit: int = 100):
+    if user.profile == "employee":
+        raise HTTPException(status_code=401, detail="You dont have permission")
     return db.query(TaskModel).offset(skip).limit(limit).all()
 
 
@@ -18,7 +19,9 @@ def get_todo_tasks(db: Session):
     return db.query(TaskModel).filter(TaskModel.status == "todo").all()
 
 
-def create_task(db: Session, task: TaskCreate):
+def create_task(db: Session, task: TaskCreate, user: User):
+    if user.profile == "employee":
+        raise HTTPException(status_code=401, detail="You dont have permission")
     if task.user_id is not None:
         user = db.query(User).filter(User.id == task.user_id).first()
         if user is None:
@@ -35,7 +38,9 @@ def create_task(db: Session, task: TaskCreate):
     return db_task
 
 
-def update_task(db: Session, task_id: int, task_data: dict):
+def update_task(db: Session, task_id: int, task_data: dict, user: User):
+    if user.profile == "employee":
+        raise HTTPException(status_code=401, detail="You dont have permission")
     db_task = get_task_by_id(db=db, task_id=task_id)
     if db_task is None:
         raise HTTPException(status_code=404, detail="Task not found")
@@ -45,7 +50,9 @@ def update_task(db: Session, task_id: int, task_data: dict):
     return db_task
 
 
-def delete_task(db: Session, task_id: int):
+def delete_task(db: Session, task_id: int, user: User):
+    if user.profile == "employee":
+        raise HTTPException(status_code=401, detail="You dont have permission")
     db_task = db.query(TaskModel).filter(TaskModel.id == task_id).first()
     if db_task is None:
         raise HTTPException(status_code=404, detail="Task not found")

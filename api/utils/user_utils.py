@@ -6,7 +6,7 @@ from .jwt_utils import get_hashed_password
 
 
 def get_user(db: Session, user: User, user_id: int):
-    if user.profile is not "admin":
+    if user.profile != "admin":
         raise HTTPException(status_code=401, detail="You dont have permission")
     return db.query(User).filter(User.id == user_id).first()
 
@@ -16,7 +16,7 @@ def get_user_by_username(db: Session, username: str):
 
 
 def get_users(db: Session, user: User, skip: int = 0, limit: int = 10):
-    if user.profile is not "admin":
+    if user.profile != "admin":
         raise HTTPException(status_code=401, detail="You dont have permission")
     return db.query(User).offset(skip).limit(limit).all()
 
@@ -34,7 +34,7 @@ def create_user(db: Session, user: UserCreate):
 
 
 def update_user(db: Session, user_id: int, user_data: dict, user: User):
-    if user.profile is not "admin":
+    if user.profile != "admin":
         raise HTTPException(status_code=401, detail="You dont have permission")
     db_user = get_user(db=db, user_id=user_id)
     if db_user is None:
@@ -46,7 +46,7 @@ def update_user(db: Session, user_id: int, user_data: dict, user: User):
 
 
 def delete_user(db: Session, user: User, user_id: int):
-    if user.profile is not "admin":
+    if user.profile != "admin":
         raise HTTPException(status_code=401, detail="You dont have permission")
     db_user = get_user(db=db, user_id=user_id)
     if db_user is None:

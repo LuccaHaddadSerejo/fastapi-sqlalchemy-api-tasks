@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import user_endpoints
+from api import user_endpoints, task_endpoints
 from database.db_setup import engine
 from database.models import user_model
 
@@ -17,5 +17,4 @@ app = FastAPI(
 
 
 app.include_router(user_endpoints.router)
-# app.include_router(courses.router)
-# app.include_router(sections.router)
+app.include_router(task_endpoints.router)

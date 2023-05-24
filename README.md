@@ -7,6 +7,7 @@
  5. Faça a migração das models com o seguinte comando: **alembic upgrade head**
  6. **Somente o ADMIN consegue criar outros usuários. O ADMIN é criado no momento da migração das models**
  7. Credenciais do ADMIN > **username: admin | password: admin1234**
+ 8. Para iniciar o servidor utilize o comando: **uvicorn main:app --reload**
 
 ## Requisitos do Serviço
 
